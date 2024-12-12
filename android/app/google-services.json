@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1070571847901-bljfe11a7qnm469g96eop58qsqbdte8l.apps.googleusercontent.com",
+              "client_id": "1070571847901-0ndg8o1uut6qr0pietun9aa1t2v2a524.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.authproject"
+                "bundle_id": "com.example.authapp"
               }
             }
           ]
@@ -67,10 +67,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1070571847901-bljfe11a7qnm469g96eop58qsqbdte8l.apps.googleusercontent.com",
+              "client_id": "1070571847901-0ndg8o1uut6qr0pietun9aa1t2v2a524.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.authproject"
+                "bundle_id": "com.example.authapp"
               }
             }
           ]
@@ -111,10 +111,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1070571847901-bljfe11a7qnm469g96eop58qsqbdte8l.apps.googleusercontent.com",
+              "client_id": "1070571847901-0ndg8o1uut6qr0pietun9aa1t2v2a524.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.authproject"
+                "bundle_id": "com.example.authapp"
               }
             }
           ]
