@@ -106,7 +106,42 @@ class AuthServices {
     }
   }
 
-  // Forget password
+// Reset password
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    try {
+      // Ensure the email address is valid
+      if (email.isEmpty) {
+        customSnackBar(context, 'Please enter your email address');
+        return;
+      }
+
+      // Send password reset email
+      await _auth.sendPasswordResetEmail(email: email);
+
+      // Show success message
+      if (context.mounted) {
+        customSnackBar(context, 'Password reset email sent!');
+      }
+    } on FirebaseAuthException catch (e) {
+      final message = handleFirebaseAuthError(e.code);
+      if (context.mounted) {
+        customSnackBar(context, message);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        customSnackBar(
+            context, 'An unexpected error occurred. Please try again.');
+      }
+    }
+  }
 
   // Sign Out
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+    await _googleSignIn.signOut();
+  }
 }

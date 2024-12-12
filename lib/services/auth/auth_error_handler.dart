@@ -17,8 +17,6 @@ String handleFirebaseAuthError(String errorCode) {
       return "Too many attempts. Please try again later.";
     case 'operation-not-allowed':
       return "This operation is not allowed. Please contact support.";
-    case 'email-already-in-use':
-      return "The email address is already in use. Please use a different email.";
     default:
       return "An unknown error occurred. Please try again.";
   }
