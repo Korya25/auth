@@ -98,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {},
                 title: 'login',
                 backgroundColor: Colors.grey,
+                isEnabled: true,
               ),
 
               // Or Devider

@@ -9,13 +9,7 @@ class AuthController {
     required dynamic formKey,
     required dynamic context,
   }) async {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState?.save();
-      await AuthServices().registerWithEmail(
-          userName: userName,
-          email: email,
-          password: password,
-          context: context);
-    }
+    await AuthServices().registerWithEmail(
+        userName: userName, email: email, password: password, context: context);
   }
 }

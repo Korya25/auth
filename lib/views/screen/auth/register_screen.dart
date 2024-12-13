@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
 import 'package:authapp/services/auth/auth_controller.dart';
@@ -7,28 +8,39 @@ import 'package:authapp/views/widgets/custom_google_button.dart';
 import 'package:authapp/views/widgets/custom_text_button.dart';
 import 'package:authapp/views/widgets/custom_text_form_field.dart';
 import 'package:authapp/views/widgets/terms_and_privicy.dart';
-import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key, required, required this.onTap});
+  const RegisterScreen({super.key, required this.onTap});
 
   final Function() onTap;
+
   @override
-  State<RegisterScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   bool isAccepted = false;
-  // Controllers
+  bool isValid = false;
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final AuthController _authController = AuthController();
 
-  // Form key
-  GlobalKey<FormState> formKey = GlobalKey();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Continue register With Email
+  void validateForm() {
+    if (formKey.currentState!.validate() && isAccepted) {
+      setState(() {
+        isValid = true;
+      });
+    } else {
+      setState(() {
+        isValid = false;
+      });
+    }
+  }
+
   void continueRegisterGoogle() {}
 
   @override
@@ -51,8 +63,8 @@ class _LoginScreenState extends State<RegisterScreen> {
             key: formKey,
             child: Column(
               spacing: 13,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Email or username
                 CustomTextFormField(
                   labelText: 'Email',
                   hintText: 'example@gmail.com',
@@ -65,10 +77,8 @@ class _LoginScreenState extends State<RegisterScreen> {
                   onSaved: (value) {
                     _emailController.text = value ?? '';
                   },
+                  onChanged: (_) => validateForm(),
                 ),
-
-                // Password
-
                 CustomTextFormField(
                   labelText: 'Password',
                   hintText: 'minimum 6 characters',
@@ -82,11 +92,10 @@ class _LoginScreenState extends State<RegisterScreen> {
                   onSaved: (value) {
                     _passwordController.text = value ?? '';
                   },
+                  onChanged: (_) => validateForm(),
                 ),
-
-                // Username
                 CustomTextFormField(
-                  labelText: 'Usernaem',
+                  labelText: 'Username',
                   hintText: 'username',
                   textColor: Colors.white,
                   textEditingController: _usernameController,
@@ -97,48 +106,40 @@ class _LoginScreenState extends State<RegisterScreen> {
                   onSaved: (value) {
                     _usernameController.text = value ?? '';
                   },
+                  onChanged: (_) => validateForm(),
                 ),
-
-                // Terms and Privaciy
                 TermsAndPrivacy(
                   isAccepted: isAccepted,
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      setState(() {
-                        isAccepted = !isAccepted;
-                      });
-                    }
+                    setState(() {
+                      isAccepted = !isAccepted;
+                      validateForm();
+                    });
                   },
                 ),
-
-                // Register Button
                 CustomActionAuthButton(
-                  isDisabled: isAccepted,
-                  onTap: () {
-                    _authController.register(
-                        userName: _usernameController.text,
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        formKey: formKey,
-                        context: context);
-                  },
+                  onTap: isValid
+                      ? () {
+                          _authController.register(
+                            userName: _usernameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            formKey: formKey,
+                            context: context,
+                          );
+                        }
+                      : () {},
                   title: 'Continue',
-                  backgroundColor: Colors.grey,
+                  backgroundColor: isValid ? Colors.blue : Colors.grey,
+                  isEnabled: isValid,
                 ),
-
-                // Or Devider
                 CustomDevider(title: 'or'),
-
-                // Login with Google Button
                 CustomLoginWithGoogle(
                   onTap: continueRegisterGoogle,
                   title: 'Sign Up with Google',
                   backgroundColor: const Color.fromARGB(255, 45, 43, 43),
                 ),
-
-                // Or Devider
                 CustomDevider(title: 'or'),
-                // Go To register
                 CustomTextButton(
                   onTap: widget.onTap,
                   title: 'Aready have an account?',

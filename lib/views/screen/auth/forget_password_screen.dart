@@ -66,6 +66,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 onTap: () {},
                 title: 'Send Password Recoveery',
                 backgroundColor: Colors.grey,
+                isEnabled: true,
               ),
             ],
           ),
