@@ -1,5 +1,6 @@
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
+import 'package:authapp/views/screen/auth/forget_password_screen.dart';
 import 'package:authapp/views/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Form(
         key: formKey,
         child: Column(
+          spacing: 10,
           children: [
             // Email or username
             CustomTextFormField(
@@ -53,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomTextFormField(
               labelText: 'Password',
               hintText: 'minimum 6 characters',
-              hasSuffixIcon: true,
+              obscureText: true,
               textColor: Colors.white,
               textEditingController: _passwordController,
               keyboardType: TextInputType.visiblePassword,
@@ -65,6 +67,22 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
             // Forget Password
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return ForgetPasswordScreen();
+                  },
+                ));
+              },
+              child: Text(
+                'Forget Password?',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                ),
+              ),
+            ),
 
             // Login Button
 
