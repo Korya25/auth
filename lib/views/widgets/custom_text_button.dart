@@ -16,22 +16,21 @@ class CustomTextButton extends StatelessWidget {
   final TextStyle titletwoStyle;
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onTap,
-      child: Row(
-        spacing: 5,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: titleStyle,
-          ),
-          Text(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          style: titleStyle,
+        ),
+        TextButton(
+          onPressed: onTap,
+          child: Text(
             titletwo,
             style: titletwoStyle,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

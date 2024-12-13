@@ -43,7 +43,7 @@ class _LoginScreenState extends State<RegisterScreen> {
           child: Form(
             key: formKey,
             child: Column(
-              spacing: 10,
+              spacing: 13,
               children: [
                 // Email or username
                 CustomTextFormField(
@@ -116,25 +116,20 @@ class _LoginScreenState extends State<RegisterScreen> {
                 CustomDevider(title: 'or'),
 
                 // Go To register
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextButton(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      title: 'Aready have an account?',
-                      titleStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                      titletwo: 'Login now',
-                      titletwoStyle: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
+                CustomTextButton(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  title: 'Aready have an account?',
+                  titleStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  titletwo: 'Login now',
+                  titletwoStyle: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                  ),
                 ),
               ],
             ),

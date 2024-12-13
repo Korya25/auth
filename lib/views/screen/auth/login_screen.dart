@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Form(
           key: formKey,
           child: Column(
-            spacing: 10,
+            spacing: 13,
             children: [
               // Email or username
               CustomTextFormField(
@@ -74,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   _passwordController.text = value ?? '';
                 },
               ),
+
               // Forget Password
               CustomTextButton(
                 onTap: () {
@@ -83,13 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ));
                 },
-                title: 'Forget Password?',
-                titleStyle: TextStyle(
+                title: '',
+                titleStyle: TextStyle(),
+                titletwo: 'Forget Password?',
+                titletwoStyle: TextStyle(
                   color: Colors.blue,
                   fontSize: 16,
                 ),
-                titletwo: '',
-                titletwoStyle: TextStyle(),
               ),
 
               // Login Button
