@@ -1,6 +1,7 @@
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
 import 'package:authapp/views/screen/auth/forget_password_screen.dart';
+import 'package:authapp/views/screen/auth/register_screen.dart';
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/custom_google_button.dart';
@@ -9,7 +10,7 @@ import 'package:authapp/views/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -87,6 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.blue,
                   fontSize: 16,
                 ),
+                titletwo: '',
+                titletwoStyle: TextStyle(),
               ),
 
               // Login Button
@@ -104,6 +107,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {},
                 title: 'Sign in with Google',
                 backgroundColor: const Color.fromARGB(255, 45, 43, 43),
+              ),
+
+              // Or Devider
+              CustomDevider(title: 'or'),
+
+              // Go To register
+              CustomTextButton(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return RegisterScreen();
+                      },
+                    ),
+                  );
+                },
+                title: 'New to app?',
+                titleStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                titletwo: 'Register now',
+                titletwoStyle: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 15,
+                ),
               ),
             ],
           ),
