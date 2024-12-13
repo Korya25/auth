@@ -1,6 +1,6 @@
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
-import 'package:authapp/views/screen/auth/forget_password_screen.dart';
+import 'package:authapp/views/screen/auth/forget_password/forget_password_screen.dart';
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/custom_google_button.dart';
@@ -96,7 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
               // Login Button
               CustomActionAuthButton(
                 onTap: () {},
-                title: 'login',
+                title: Text(
+                  'Continue',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 backgroundColor: Colors.grey,
                 isEnabled: true,
               ),

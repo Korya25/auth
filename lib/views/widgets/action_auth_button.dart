@@ -10,7 +10,7 @@ class CustomActionAuthButton extends StatefulWidget {
   });
 
   final Function()? onTap;
-  final String title;
+  final Widget title;
   final Color backgroundColor;
   final bool isEnabled;
 
@@ -30,14 +30,7 @@ class _CustomActionAuthButtonState extends State<CustomActionAuthButton> {
           color: widget.isEnabled ? widget.backgroundColor : Colors.grey,
         ),
         child: Center(
-          child: Text(
-            widget.title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: widget.title,
         ),
       ),
     );

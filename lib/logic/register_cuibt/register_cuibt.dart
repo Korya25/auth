@@ -1,5 +1,5 @@
 import 'package:authapp/logic/register_cuibt/register_state.dart';
-import 'package:authapp/services/auth/auth_controller.dart';
+import 'package:authapp/services/auth/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,16 +10,15 @@ class RegisterCubit extends Cubit<RegisterState> {
       {required String userName,
       required String email,
       required String password,
-      required dynamic formKey,
       required dynamic context}) async {
     try {
       emit(RegisterLoading());
-      await AuthController().register(
+      await AuthServices().registerWithEmail(
           userName: userName,
           email: email,
           password: password,
-          formKey: formKey,
           context: context);
+
       emit(RegisterSuccess());
     } on FirebaseAuthException catch (e) {
       emit(RegisterFailure(errorMessage: e.code));
@@ -28,25 +27,3 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 }
-
-/*
-class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitial());
-  Future<void> userRegister(
-      {required String email,
-      required String password,
-      required String userName}) async {
-    try {
-      emit(RegisterLoading());
-      await FirebaseService.register(
-          email: email, password: password, userName: userName);
-      emit(RegisterSuccess());
-    } on FirebaseAuthException catch (err) {
-      emit(RegisterFailure(message: err.code));
-    } catch (err) {
-      emit(RegisterFailure(message: err.toString()));
-    }
-  }
-}
-
-*/

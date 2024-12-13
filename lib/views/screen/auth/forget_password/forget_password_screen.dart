@@ -64,7 +64,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               // Password Recavory Button
               CustomActionAuthButton(
                 onTap: () {},
-                title: 'Send Password Recoveery',
+                title: Text(
+                  'Send Password Recoveery',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 backgroundColor: Colors.grey,
                 isEnabled: true,
               ),

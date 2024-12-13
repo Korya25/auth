@@ -1,6 +1,8 @@
-import 'package:authapp/views/screen/auth/auth_form/register_form.dart';
+import 'package:authapp/logic/register_cuibt/register_cuibt.dart';
+import 'package:authapp/views/screen/auth/register/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:authapp/constanta/app_text_style.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key, required this.onTap});
@@ -20,7 +22,10 @@ class RegisterScreen extends StatelessWidget {
           style: AppTextStyle.appBar,
         ),
       ),
-      body: RegisterForm(onTap: onTap),
+      body: BlocProvider(
+        create: (context) => RegisterCubit(),
+        child: RegisterForm(onTap: onTap),
+      ),
     );
   }
 }

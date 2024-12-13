@@ -1,5 +1,5 @@
-import 'package:authapp/views/screen/auth/login_screen.dart';
-import 'package:authapp/views/screen/auth/register_screen.dart';
+import 'package:authapp/views/screen/auth/login/login_screen.dart';
+import 'package:authapp/views/screen/auth/register/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginOrRegisterScreen extends StatefulWidget {

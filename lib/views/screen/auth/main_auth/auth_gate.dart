@@ -1,4 +1,4 @@
-import 'package:authapp/views/screen/auth/login_or_register_screen.dart';
+import 'package:authapp/views/screen/auth/main_auth/login_or_register_screen.dart';
 import 'package:authapp/views/screen/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
