@@ -116,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {},
                 title: 'Sign in with Google',
                 backgroundColor: const Color.fromARGB(255, 45, 43, 43),
+                loading: false,
               ),
 
               // Or Devider

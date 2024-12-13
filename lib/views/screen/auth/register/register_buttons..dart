@@ -1,3 +1,6 @@
+import 'package:authapp/logic/google_register_cuibt/google_register_state.dart';
+import 'package:authapp/logic/google_register_cuibt/google_registur_cuibt.dart';
+
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/custom_google_button.dart';
@@ -8,18 +11,18 @@ import 'package:authapp/logic/register_cuibt/register_state.dart';
 
 class RegisterButtons extends StatelessWidget {
   final bool isValid;
-  final Function() onGoogleTap;
   final double spacing;
 
   const RegisterButtons({
     super.key,
     required this.isValid,
-    required this.onGoogleTap,
     this.spacing = 0,
   });
 
   @override
   Widget build(BuildContext context) {
+    final registerGoogleCubit = context.watch<RegisterGoogleCubit>();
+
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         final isLoading = state is RegisterLoading;
@@ -53,9 +56,14 @@ class RegisterButtons extends StatelessWidget {
             ),
             const CustomDevider(title: 'or'),
             CustomLoginWithGoogle(
-              onTap: onGoogleTap,
+              onTap: () {
+                registerGoogleCubit.registerWithGoogle(context);
+              },
               title: 'Sign Up with Google',
               backgroundColor: const Color.fromARGB(255, 45, 43, 43),
+              loading: registerGoogleCubit.state is RegisterGoogleLoading
+                  ? true
+                  : false,
             ),
           ],
         );

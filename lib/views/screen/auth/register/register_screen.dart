@@ -1,3 +1,4 @@
+import 'package:authapp/logic/google_register_cuibt/google_registur_cuibt.dart';
 import 'package:authapp/logic/register_cuibt/register_cuibt.dart';
 import 'package:authapp/views/screen/auth/register/register_form.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,15 @@ class RegisterScreen extends StatelessWidget {
           style: AppTextStyle.appBar,
         ),
       ),
-      body: BlocProvider(
-        create: (context) => RegisterCubit(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<RegisterCubit>(
+            create: (context) => RegisterCubit(),
+          ),
+          BlocProvider<RegisterGoogleCubit>(
+            create: (context) => RegisterGoogleCubit(),
+          )
+        ],
         child: RegisterForm(onTap: onTap),
       ),
     );

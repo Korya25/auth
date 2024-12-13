@@ -1,3 +1,4 @@
+import 'package:authapp/views/screen/auth/main_auth/auth_gate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,7 @@ import 'package:authapp/helper/snakbar.dart';
 
 class AuthGoogleServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    serverClientId:
-        '1070571847901-mmofmsebvots2ms2tlvm9te2vtausna1.apps.googleusercontent.com',
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<User?> signInWithGoogle(BuildContext context) async {
     try {
@@ -33,14 +31,41 @@ class AuthGoogleServices {
       return userCredential.user;
     } catch (e) {
       if (context.mounted) {
-        customSnackBar(
-            context, 'An unexpected error occurred. Please try again.');
+        customSnackBar(context, 'Error: ${e.toString()}');
       }
       return null;
     }
   }
 
-  Future<void> signOut() async {
-    await _googleSignIn.signOut();
+  // دالة لتسجيل الخروج
+  Future<void> signOut(BuildContext context) async {
+    try {
+      // تسجيل الخروج من Google Sign-In
+      await _googleSignIn.signOut();
+      // تسجيل الخروج من Firebase
+      await _auth.signOut();
+
+      // تحديث واجهة المستخدم بعد تسجيل الخروج
+      if (context.mounted) {
+        // يمكن استبدال هذا بالتوجيه إلى صفحة تسجيل الدخول أو أي شاشة أخرى
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return AuthGate();
+          },
+        ));
+      }
+
+      // عرض رسالة توضح أن تسجيل الخروج تم بنجاح
+      if (context.mounted) {
+        final snackBar = SnackBar(content: Text('You have been logged out.'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } catch (e) {
+      // التعامل مع الأخطاء إذا حدثت أثناء تسجيل الخروج
+      if (context.mounted) {
+        final snackBar = SnackBar(content: Text('Error: ${e.toString()}'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
   }
 }

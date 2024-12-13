@@ -5,10 +5,12 @@ class CustomLoginWithGoogle extends StatelessWidget {
       {super.key,
       required this.onTap,
       required this.title,
-      required this.backgroundColor});
+      required this.backgroundColor,
+      required this.loading});
   final Function() onTap;
   final String title;
   final Color backgroundColor;
+  final bool loading;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,24 +22,33 @@ class CustomLoginWithGoogle extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: backgroundColor,
         ),
-        child: Row(
-          spacing: MediaQuery.of(context).size.width / 5,
-          children: [
-            Image(
-              image: AssetImage('assets/th.png'),
-              width: 30,
-              height: 30,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+        child: loading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Row(
+                children: [
+                  Image(
+                    image: AssetImage('assets/th.png'),
+                    width: 30,
+                    height: 30,
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

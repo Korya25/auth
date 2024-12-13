@@ -1,5 +1,5 @@
 import 'package:authapp/constanta/app_text_style.dart';
-import 'package:authapp/services/auth/auth_services.dart';
+import 'package:authapp/services/auth/auth_google_services.dart';
 import 'package:authapp/views/screen/home/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +82,7 @@ class MyDrawer extends StatelessWidget {
                 color: Color.fromARGB(255, 255, 19, 2),
               ),
               onTap: () async {
-                await AuthServices().signOut();
+                await AuthGoogleServices().signOut(context);
               },
             ),
           ),

@@ -1,4 +1,6 @@
 import 'package:authapp/views/screen/auth/register/register_buttons..dart';
+import 'package:authapp/views/screen/auth/register/register_footer.dart';
+import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/terms_and_privicy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,8 +80,11 @@ class _RegisterFormState extends State<RegisterForm> {
                   RegisterButtons(
                     spacing: spacing,
                     isValid: isValid,
-                    onGoogleTap: () {},
                   ),
+                  CustomDevider(title: 'or'),
+                  RegisterFooter(
+                    onTap: widget.onTap,
+                  )
                 ],
               ),
             ),
