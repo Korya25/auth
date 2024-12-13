@@ -1,4 +1,4 @@
-import 'package:authapp/views/screen/home/home_screen.dart';
+import 'package:authapp/views/screen/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: AuthGate(),
     );
   }
 }
