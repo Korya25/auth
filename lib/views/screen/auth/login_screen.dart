@@ -1,7 +1,6 @@
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
 import 'package:authapp/views/screen/auth/forget_password_screen.dart';
-import 'package:authapp/views/screen/auth/register_screen.dart';
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/custom_google_button.dart';
@@ -10,7 +9,8 @@ import 'package:authapp/views/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required});
+  const LoginScreen({super.key, required, required this.onTap});
+  final Function() onTap;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -115,16 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // Go To register
               CustomTextButton(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return RegisterScreen();
-                      },
-                    ),
-                  );
-                },
+                onTap: widget.onTap,
                 title: 'New to app?',
                 titleStyle: TextStyle(
                   color: Colors.white,

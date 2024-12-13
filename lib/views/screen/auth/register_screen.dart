@@ -9,8 +9,9 @@ import 'package:authapp/views/widgets/terms_and_privicy.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key, required});
+  const RegisterScreen({super.key, required, required this.onTap});
 
+  final Function() onTap;
   @override
   State<RegisterScreen> createState() => _LoginScreenState();
 }
@@ -117,9 +118,7 @@ class _LoginScreenState extends State<RegisterScreen> {
 
                 // Go To register
                 CustomTextButton(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: widget.onTap,
                   title: 'Aready have an account?',
                   titleStyle: TextStyle(
                     color: Colors.white,
