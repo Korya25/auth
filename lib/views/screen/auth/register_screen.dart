@@ -1,5 +1,6 @@
 import 'package:authapp/constanta/app_text_style.dart';
 import 'package:authapp/helper/utils/auth_validator.dart';
+import 'package:authapp/services/auth/auth_controller.dart';
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
 import 'package:authapp/views/widgets/custom_google_button.dart';
@@ -21,9 +22,13 @@ class _LoginScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  final AuthController _authController = AuthController();
 
   // Form key
   GlobalKey<FormState> formKey = GlobalKey();
+
+  // Continue register With Email
+  void continueRegisterGoogle() {}
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +101,16 @@ class _LoginScreenState extends State<RegisterScreen> {
                 // Terms and Privaciy
                 TermsAndPrivacy(),
 
-                // Login Button
+                // Register Button
                 CustomActionAuthButton(
-                  onTap: () {},
+                  onTap: () {
+                    _authController.register(
+                        userName: _usernameController.text,
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        formKey: formKey,
+                        context: context);
+                  },
                   title: 'Continue',
                   backgroundColor: Colors.grey,
                 ),
@@ -108,7 +120,7 @@ class _LoginScreenState extends State<RegisterScreen> {
 
                 // Login with Google Button
                 CustomLoginWithGoogle(
-                  onTap: () {},
+                  onTap: continueRegisterGoogle,
                   title: 'Sign Up with Google',
                   backgroundColor: const Color.fromARGB(255, 45, 43, 43),
                 ),

@@ -19,6 +19,9 @@ class AuthServices {
         email: email,
         password: password,
       );
+      if (context.mounted) {
+        customSnackBar(context, 'Cheack the email to virfiy your account');
+      }
       return userCredential;
     } on FirebaseAuthException catch (e) {
       final errorMessage = handleFirebaseAuthError(e.code);
