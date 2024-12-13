@@ -18,6 +18,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<RegisterScreen> {
+  bool isAccepted = false;
   // Controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -99,10 +100,20 @@ class _LoginScreenState extends State<RegisterScreen> {
                 ),
 
                 // Terms and Privaciy
-                TermsAndPrivacy(),
+                TermsAndPrivacy(
+                  isAccepted: isAccepted,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      setState(() {
+                        isAccepted = !isAccepted;
+                      });
+                    }
+                  },
+                ),
 
                 // Register Button
                 CustomActionAuthButton(
+                  isDisabled: isAccepted,
                   onTap: () {
                     _authController.register(
                         userName: _usernameController.text,
@@ -127,7 +138,6 @@ class _LoginScreenState extends State<RegisterScreen> {
 
                 // Or Devider
                 CustomDevider(title: 'or'),
-
                 // Go To register
                 CustomTextButton(
                   onTap: widget.onTap,

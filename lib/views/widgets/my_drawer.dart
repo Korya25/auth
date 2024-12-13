@@ -1,4 +1,5 @@
 import 'package:authapp/constanta/app_text_style.dart';
+import 'package:authapp/services/auth/auth_services.dart';
 import 'package:authapp/views/screen/home/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -80,7 +81,9 @@ class MyDrawer extends StatelessWidget {
                 Icons.logout,
                 color: Color.fromARGB(255, 255, 19, 2),
               ),
-              onTap: () {},
+              onTap: () async {
+                await AuthServices().signOut();
+              },
             ),
           ),
         ],
@@ -88,3 +91,13 @@ class MyDrawer extends StatelessWidget {
     );
   }
 }
+/*
+   onPressed: () async {
+                await GoogleAuthService().signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LoginOrRegisterPage()),
+                );
+              },
+*/
