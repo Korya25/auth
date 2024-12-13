@@ -40,9 +40,10 @@ class AuthValidators {
   }
 
   static String? validatePasswordLogin(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value.length < 6) {
       return 'Password cannot be empty';
     }
+
     return null;
   }
 }

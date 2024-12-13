@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
 /// Customizable TextFormField Widget
-/// This widget can handle both standard text fields and password fields.
-/// - [hintText]: Placeholder text for the field.
-/// - [textEditingController]: Controller to manage the field's text.
-/// - [obscureText]: Whether the text should be obscured (useful for passwords).
-/// - [validator]: Validation function to validate the input.
-/// - [hasSuffixIcon]: Whether to show a suffix icon (e.g., for toggling obscureText).
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
@@ -24,6 +18,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.labelText,
     required this.hintStyle,
     required this.labelStyle,
+    this.textColor = Colors.black, // Default text color
   });
 
   final String hintText;
@@ -40,6 +35,7 @@ class CustomTextFormField extends StatefulWidget {
   final int maxLines;
   final TextStyle? style;
   final void Function(String)? onChanged;
+  final Color textColor; // New property for text color
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -47,11 +43,22 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late bool isObscureText;
+  bool isValid = false; // Track validation state
+  bool hasText = false; // Track if there is text in the field
 
   @override
   void initState() {
     super.initState();
     isObscureText = widget.obscureText;
+  }
+
+  void _validate(String value) {
+    setState(() {
+      hasText = value.isNotEmpty; // Check if the field has text
+      if (widget.validator != null) {
+        isValid = widget.validator!(value) == null;
+      }
+    });
   }
 
   @override
@@ -71,22 +78,42 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           obscureText: widget.hasSuffixIcon ? isObscureText : false,
           maxLength: widget.maxLength,
           maxLines: widget.maxLines,
-          style: widget.style,
-          onChanged: widget.onChanged,
+          style: widget.style ??
+              TextStyle(
+                color: widget.textColor, // Use the specified text color
+              ),
+          onChanged: (value) {
+            _validate(value);
+            if (widget.onChanged != null) {
+              widget.onChanged!(value);
+            }
+          },
           decoration: InputDecoration(
             hintStyle: widget.hintStyle,
             labelStyle: widget.labelStyle,
             hintText: widget.hintText,
-            suffixIcon: widget.hasSuffixIcon
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isObscureText = !isObscureText;
-                      });
-                    },
-                    icon: Icon(
-                      isObscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromARGB(141, 158, 158, 158),
+                width: 1.0,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromARGB(160, 158, 158, 158),
+                width: 1.0,
+              ),
+            ),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromARGB(152, 158, 158, 158),
+                width: 1.0,
+              ),
+            ),
+            suffixIcon: hasText
+                ? Icon(
+                    isValid ? Icons.check_circle : Icons.error,
+                    color: isValid ? Colors.green : Colors.red,
                   )
                 : null,
           ),

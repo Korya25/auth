@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomTextFormField(
               labelText: 'Email or username',
               hintText: 'example@gmail.com',
+              textColor: Colors.white,
               textEditingController: _emailController,
               keyboardType: TextInputType.emailAddress,
               hintStyle: AppTextStyle.hintTextFormField,
@@ -52,6 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomTextFormField(
               labelText: 'Password',
               hintText: 'minimum 6 characters',
+              hasSuffixIcon: true,
+              textColor: Colors.white,
               textEditingController: _passwordController,
               keyboardType: TextInputType.visiblePassword,
               hintStyle: AppTextStyle.hintTextFormField,
