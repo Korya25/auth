@@ -3,6 +3,7 @@ import 'package:authapp/helper/utils/auth_validator.dart';
 import 'package:authapp/views/screen/auth/forget_password_screen.dart';
 import 'package:authapp/views/widgets/action_auth_button.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
+import 'package:authapp/views/widgets/custom_google_button.dart';
 import 'package:authapp/views/widgets/custom_text_button.dart';
 import 'package:authapp/views/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -89,13 +90,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               // Login Button
-              CustomActionAuthButton(onTap: () {}, title: 'login'),
+              CustomActionAuthButton(
+                onTap: () {},
+                title: 'login',
+                backgroundColor: Colors.grey,
+              ),
 
               // Or Devider
-              CustomDevider(
-                title: 'or',
-              )
+              CustomDevider(title: 'or'),
+
               // Login with Google Button
+              CustomLoginWithGoogle(
+                onTap: () {},
+                title: 'Sign in with Google',
+                backgroundColor: const Color.fromARGB(255, 45, 43, 43),
+              ),
             ],
           ),
         ),
