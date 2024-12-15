@@ -20,18 +20,18 @@ class AuthServices {
         password: password,
       );
       if (context.mounted) {
-        customSnackBar(context, 'Cheack the email to virfiy your account');
+        customDialog(context, 'Cheack the email to virfiy your account');
       }
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      final errorMessage = handleFirebaseAuthError(e.code);
+      final errorMessage = handleRegisterError(e.code);
       if (context.mounted) {
-        customSnackBar(context, errorMessage);
+        customDialog(context, errorMessage);
       }
       return null;
     } catch (e) {
       if (context.mounted) {
-        customSnackBar(
+        customDialog(
             context, 'An unexpected error occurred. Please try again.');
       }
       return null;
@@ -51,17 +51,53 @@ class AuthServices {
       );
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      final String errorMessage = handleFirebaseAuthError(e.code);
+      final String errorMessage = handleLoginError(e.code);
       if (context.mounted) {
-        customSnackBar(context, errorMessage);
+        customDialog(context, errorMessage);
       }
       return null;
     } catch (e) {
       if (context.mounted) {
-        customSnackBar(
+        customDialog(
             context, 'An unexpected error occurred. Please try again.');
       }
       return null;
+    }
+  }
+
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    try {
+      // التحقق من إدخال البريد الإلكتروني
+      if (email.isEmpty) {
+        customDialog(context, 'Please enter your email address.');
+        return;
+      }
+
+      // إرسال رابط إعادة تعيين كلمة المرور
+      await _auth.sendPasswordResetEmail(email: email);
+
+      // عرض رسالة تأكيد عند النجاح
+      if (context.mounted) {
+        customDialog(context, 'Password reset email has been sent!');
+      }
+    } on FirebaseAuthException catch (e) {
+      // التعامل مع أخطاء FirebaseAuthException
+      final message = handleLoginError(e.code);
+      if (context.mounted) {
+        customDialog(context, message);
+      }
+    } catch (e) {
+      // التعامل مع الأخطاء العامة
+      if (context.mounted) {
+        customDialog(
+          context,
+          'An unexpected error occurred. Please try again later.',
+        );
+      }
     }
   }
 }

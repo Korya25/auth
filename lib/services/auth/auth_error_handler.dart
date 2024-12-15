@@ -1,23 +1,45 @@
-String handleFirebaseAuthError(String errorCode) {
+String handleLoginError(String errorCode) {
   switch (errorCode) {
     case 'invalid-email':
-    case 'wrong-password':
-      return "The email address or password are invalid.";
-    case 'user-disabled':
-      return "This user account has been disabled. Please contact support.";
+      return "The email address entered is invalid. Please enter a valid email.";
     case 'user-not-found':
-      return "No user found for this email. Please go to Register now.";
-    case 'email-already-in-use':
-      return "The email address is already in use. Please use a different email.";
-    case 'weak-password':
-      return "The password is too weak. Please choose a stronger password.";
+      return "No account found with this email. Please register first.";
+    case 'wrong-password':
+      return "The password is incorrect. Please try again or reset your password.";
+    case 'user-disabled':
+      return "This account has been disabled. Please contact support for assistance.";
     case 'network-request-failed':
       return "Network error. Please check your internet connection and try again.";
     case 'too-many-requests':
-      return "Too many attempts. Please try again later.";
+      return "Too many login attempts. Please try again later.";
+    case 'requires-recent-login':
+      return "This action requires recent login. Please log in again.";
     case 'operation-not-allowed':
-      return "This operation is not allowed. Please contact support.";
+      return "Login via email and password is not enabled. Contact support.";
     default:
-      return "An unknown error occurred. Please try again.";
+      return "An unknown error occurred during login. Please try again.";
+  }
+}
+
+String handleRegisterError(String errorCode) {
+  switch (errorCode) {
+    case 'invalid-email':
+      return "The email address entered is invalid. Please enter a valid email.";
+    case 'email-already-in-use':
+      return "This email is already registered. Please use a different email or log in.";
+    case 'weak-password':
+      return "The password is too weak. Please choose a stronger password.";
+    case 'operation-not-allowed':
+      return "Registration using email and password is not enabled. Contact support.";
+    case 'network-request-failed':
+      return "Network error. Please check your internet connection and try again.";
+    case 'too-many-requests':
+      return "Too many attempts to register. Please try again later.";
+    case 'credential-already-in-use':
+      return "This credential is already associated with another account.";
+    case 'invalid-credential':
+      return "The provided credential is invalid. Please check and try again.";
+    default:
+      return "An unknown error occurred during registration. Please try again.";
   }
 }

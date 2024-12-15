@@ -1,34 +1,34 @@
-import 'package:authapp/views/screen/auth/register/register_buttons..dart';
-import 'package:authapp/views/screen/auth/register/register_footer.dart';
+import 'package:authapp/logic/login_cuibt/login_cuibt.dart';
+import 'package:authapp/logic/login_cuibt/login_state.dart';
+import 'package:authapp/views/screen/auth/forget_password/forget_password_screen.dart';
+import 'package:authapp/views/screen/auth/login/login_buttons..dart';
+import 'package:authapp/views/screen/auth/login/login_footer.dart';
 import 'package:authapp/views/widgets/custom_divider.dart';
-import 'package:authapp/views/widgets/terms_and_privicy.dart';
+import 'package:authapp/views/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:authapp/logic/register_cuibt/register_cuibt.dart';
 import 'package:authapp/logic/register_cuibt/register_state.dart';
-import 'register_fields.dart';
+import 'Login_fields.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key, required this.onTap});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key, required this.onTap});
 
   final Function() onTap;
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  bool isAccepted = false;
+class _LoginFormState extends State<LoginForm> {
   bool isValid = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void validateForm() {
-    if (formKey.currentState!.validate() && isAccepted) {
+    if (formKey.currentState!.validate()) {
       setState(() {
         isValid = true;
       });
@@ -41,14 +41,14 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    double spacing = 13;
+    double spacing = 15;
 
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
         } else if (state is RegisterFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
+            SnackBar(content: Text(state.toString())),
           );
         }
       },
@@ -61,31 +61,40 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Column(
                 spacing: spacing,
                 children: [
-                  RegisterFields(
+                  LoginFields(
                     spacing: spacing,
                     emailController: _emailController,
                     passwordController: _passwordController,
-                    usernameController: _usernameController,
                     validateForm: validateForm,
                   ),
-                  TermsAndPrivacy(
-                    isAccepted: isAccepted,
-                    onPressed: () {
-                      setState(() {
-                        isAccepted = !isAccepted;
-                        validateForm();
-                      });
+                  CustomTextButton(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return ForgetPasswordScreen();
+                        },
+                      ));
                     },
+                    title: '',
+                    titletwo: 'Forget Password?',
+                    titletwoStyle: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    titleStyle: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                    ),
                   ),
-                  RegisterButtons(
+                  LoginButtons(
                     spacing: spacing,
                     isValid: isValid,
                     email: _emailController.text,
                     password: _passwordController.text,
-                    userName: _usernameController.text,
                   ),
                   CustomDevider(title: 'or'),
-                  RegisterFooter(
+                  LoginFooter(
                     onTap: widget.onTap,
                   )
                 ],

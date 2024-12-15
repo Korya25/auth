@@ -17,4 +17,8 @@ class AppTextStyle {
     fontSize: 15,
     fontWeight: FontWeight.bold,
   );
+  static TextStyle customDialogcontent = TextStyle(
+    color: Colors.white,
+    fontSize: 17,
+  );
 }

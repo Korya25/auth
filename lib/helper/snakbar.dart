@@ -1,3 +1,4 @@
+import 'package:authapp/constanta/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 //! Custom SnackBar
@@ -23,9 +24,8 @@ void customSnackBar(BuildContext context, String message,
 
 //! Custom Dialog
 Future<void> customDialog(
-  BuildContext context, {
-  required String title,
-  required String btnTitle,
+  BuildContext context,
+  String errorMessage, {
   TextEditingController? controller,
   void Function()? onPressed,
   bool isobscure = false,
@@ -35,6 +35,48 @@ Future<void> customDialog(
   Color? titleColor,
 }) {
   return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.black87,
+        shape: BeveledRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        content: Container(
+          height: 100,
+          padding: EdgeInsets.all(10),
+          child: Text(
+            errorMessage,
+            style: AppTextStyle.customDialogcontent,
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              // منطق الحذف
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              height: 35,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                  child: Text(
+                'ok',
+                style: AppTextStyle.customDialogcontent,
+              )),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+/*
+
+showDialog(
     context: context,
     builder: (context) => AlertDialog(
       shape: const BeveledRectangleBorder(
@@ -62,14 +104,6 @@ Future<void> customDialog(
               ),
             ),
           ),
-      actions: [
-        Center(
-          child: ElevatedButton(
-            onPressed: onPressed,
-            child: Text(btnTitle),
-          ),
-        ),
-      ],
     ),
-  );
-}
+
+*/
