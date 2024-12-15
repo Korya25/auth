@@ -1,5 +1,6 @@
 import 'package:authapp/logic/google_register_cuibt/google_registur_cuibt.dart';
 import 'package:authapp/logic/login_cuibt/login_cuibt.dart';
+import 'package:authapp/services/auth/auth_services.dart'; // إضافة لاستيراد AuthServices
 import 'package:authapp/views/screen/auth/login/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:authapp/constanta/app_text_style.dart';
@@ -15,8 +16,8 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Color.fromARGB(255, 45, 45, 49),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: const Color.fromARGB(255, 45, 45, 49),
         centerTitle: true,
         title: Text(
           'Login',
@@ -26,11 +27,12 @@ class LoginScreen extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<LoginCubit>(
-            create: (context) => LoginCubit(),
+            create: (context) =>
+                LoginCubit(AuthServices()), // تمرير AuthServices إلى LoginCubit
           ),
           BlocProvider<RegisterGoogleCubit>(
             create: (context) => RegisterGoogleCubit(),
-          )
+          ),
         ],
         child: LoginForm(onTap: onTap),
       ),

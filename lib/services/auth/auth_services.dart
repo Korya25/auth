@@ -20,18 +20,19 @@ class AuthServices {
         password: password,
       );
       if (context.mounted) {
-        customDialog(context, 'Cheack the email to virfiy your account');
+        CustomDialogHandler.showCustomDialog(
+            context, 'Cheack the email to virfiy your account');
       }
       return userCredential;
     } on FirebaseAuthException catch (e) {
       final errorMessage = handleRegisterError(e.code);
       if (context.mounted) {
-        customDialog(context, errorMessage);
+        CustomDialogHandler.showCustomDialog(context, errorMessage);
       }
       return null;
     } catch (e) {
       if (context.mounted) {
-        customDialog(
+        CustomDialogHandler.showCustomDialog(
             context, 'An unexpected error occurred. Please try again.');
       }
       return null;
@@ -49,16 +50,17 @@ class AuthServices {
         email: email,
         password: password,
       );
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       final String errorMessage = handleLoginError(e.code);
       if (context.mounted) {
-        customDialog(context, errorMessage);
+        CustomDialogHandler.showCustomDialog(context, errorMessage);
       }
       return null;
     } catch (e) {
       if (context.mounted) {
-        customDialog(
+        CustomDialogHandler.showCustomDialog(
             context, 'An unexpected error occurred. Please try again.');
       }
       return null;
@@ -73,7 +75,8 @@ class AuthServices {
     try {
       // التحقق من إدخال البريد الإلكتروني
       if (email.isEmpty) {
-        customDialog(context, 'Please enter your email address.');
+        CustomDialogHandler.showCustomDialog(
+            context, 'Please enter your email address.');
         return;
       }
 
@@ -82,18 +85,19 @@ class AuthServices {
 
       // عرض رسالة تأكيد عند النجاح
       if (context.mounted) {
-        customDialog(context, 'Password reset email has been sent!');
+        CustomDialogHandler.showCustomDialog(
+            context, 'Password reset email has been sent!');
       }
     } on FirebaseAuthException catch (e) {
       // التعامل مع أخطاء FirebaseAuthException
       final message = handleLoginError(e.code);
       if (context.mounted) {
-        customDialog(context, message);
+        CustomDialogHandler.showCustomDialog(context, message);
       }
     } catch (e) {
       // التعامل مع الأخطاء العامة
       if (context.mounted) {
-        customDialog(
+        CustomDialogHandler.showCustomDialog(
           context,
           'An unexpected error occurred. Please try again later.',
         );

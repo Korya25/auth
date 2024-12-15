@@ -12,7 +12,7 @@ void customSnackBar(BuildContext context, String message,
       content: Center(
         child: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -23,87 +23,66 @@ void customSnackBar(BuildContext context, String message,
 }
 
 //! Custom Dialog
-Future<void> customDialog(
-  BuildContext context,
-  String errorMessage, {
-  TextEditingController? controller,
-  void Function()? onPressed,
-  bool isobscure = false,
-  String? hintText,
-  Widget? textWidget,
-  Widget? widget,
-  Color? titleColor,
-}) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black87,
-        shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        content: Container(
-          height: 100,
-          padding: EdgeInsets.all(10),
-          child: Text(
-            errorMessage,
-            style: AppTextStyle.customDialogcontent,
+class CustomDialogHandler {
+  static bool _isDialogShowing = false;
+
+  static Future<void> showCustomDialog(
+    BuildContext context,
+    String errorMessage, {
+    TextEditingController? controller,
+    void Function()? onPressed,
+    bool isObscure = false,
+    String? hintText,
+    Widget? textWidget,
+    Widget? widget,
+    Color? titleColor,
+  }) async {
+    // تحقق مما إذا كان الحوار معروضًا بالفعل
+    if (_isDialogShowing) return;
+
+    _isDialogShowing = true;
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black87,
+          shape: BeveledRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              // منطق الحذف
-              Navigator.of(context).pop();
-            },
-            child: Container(
-              height: 35,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
+          content: Container(
+            height: 100,
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              errorMessage,
+              style: AppTextStyle.customDialogcontent,
+            ),
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                height: 35,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
                   child: Text(
-                'ok',
-                style: AppTextStyle.customDialogcontent,
-              )),
+                    'OK',
+                    style: AppTextStyle.customDialogcontent,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
-      );
-    },
-  );
+          ],
+        );
+      },
+    );
+
+    // عند إغلاق الحوار، إعادة تعيين الحالة
+    _isDialogShowing = false;
+  }
 }
-/*
-
-showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      shape: const BeveledRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(2)),
-      ),
-      title: textWidget ??
-          Text(
-            title,
-            style: TextStyle(color: titleColor ?? Colors.white),
-            textAlign: TextAlign.center,
-          ),
-      content: widget ??
-          TextField(
-            style: TextStyle(color: Colors.white),
-            obscureText: isobscure,
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hintText ?? "Enter value",
-              filled: false,
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ),
-    ),
-
-*/

@@ -1,4 +1,5 @@
 import 'package:authapp/views/screen/auth/main_auth/login_or_register_screen.dart';
+import 'package:authapp/views/screen/auth/viriactionscreen.dart';
 import 'package:authapp/views/screen/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,107 +12,58 @@ class AuthGate extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // حالة انتظار البيانات
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasError) {
-            // حالة وجود خطأ أثناء جلب البيانات
-            return const Scaffold(
-              body: Center(
-                child: Text(
-                  "An error occurred. Please try again.",
-                  style: TextStyle(fontSize: 16, color: Colors.red),
-                ),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            // حالة المستخدم مسجل الدخول
-            return const HomeScreen();
-          } else {
-            // حالة عدم وجود بيانات (غير مسجل الدخول)
-            return const LoginOrRegisterScreen();
-          }
-        } else {
-          // حالة أخرى غير متوقعة
-          return const Scaffold(
-            body: Center(
-              child: Text(
-                "Unexpected state. Please restart the app.",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-            ),
-          );
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return _buildLoadingScreen();
+          case ConnectionState.active:
+            return _buildContentBasedOnSnapshot(context, snapshot);
+          default:
+            return _buildErrorScreen(
+                "Unexpected state. Please restart the app.");
         }
       },
     );
   }
-}
-/*
-import 'package:authapp/views/screen/auth/login_or_register_screen.dart';
-import 'package:authapp/views/screen/home/home_screen.dart';
-import 'package:authapp/views/screen/auth/verification_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-class AuthGate extends StatelessWidget {
-  const AuthGate({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // حالة انتظار البيانات
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasError) {
-            // حالة وجود خطأ أثناء جلب البيانات
-            return const Scaffold(
-              body: Center(
-                child: Text(
-                  "An error occurred. Please try again.",
-                  style: TextStyle(fontSize: 16, color: Colors.red),
-                ),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            // المستخدم مسجل الدخول
-            final user = snapshot.data!;
-            if (!user.emailVerified) {
-              // إذا كان البريد الإلكتروني غير مُحقق
-              return const VerificationScreen();
-            } else {
-              // إذا كان البريد الإلكتروني مُحقق
-              return const HomeScreen();
-            }
-          } else {
-            // المستخدم غير مسجل الدخول
-            return const LoginOrRegisterScreen();
-          }
-        } else {
-          // حالة غير متوقعة
-          return const Scaffold(
-            body: Center(
-              child: Text(
-                "Unexpected state. Please restart the app.",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-            ),
-          );
-        }
-      },
+  // شاشة تحميل
+  Widget _buildLoadingScreen() {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
-}
 
-*/
+  // شاشة خطأ
+  Widget _buildErrorScreen(String errorMessage) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          errorMessage,
+          style: const TextStyle(fontSize: 16, color: Colors.red),
+        ),
+      ),
+    );
+  }
+
+  // بناء محتوى الشاشة بناءً على حالة Snapshot
+  Widget _buildContentBasedOnSnapshot(
+      BuildContext context, AsyncSnapshot<User?> snapshot) {
+    if (snapshot.hasError) {
+      return _buildErrorScreen("An error occurred. Please try again.");
+    }
+
+    if (snapshot.hasData) {
+      final user = snapshot.data!;
+      if (!user.emailVerified) {
+        // البريد الإلكتروني غير محقق
+        return const VirfiyScreen();
+      }
+      // البريد الإلكتروني مُحقق
+      return const HomeScreen();
+    }
+
+    // المستخدم غير مسجل الدخول
+    return const LoginOrRegisterScreen();
+  }
+}
