@@ -1,5 +1,5 @@
 import 'package:authapp/logic/google_register_cuibt/google_register_state.dart';
-import 'package:authapp/services/auth/auth_google_services.dart';
+import 'package:authapp/core/services/auth/auth_google_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

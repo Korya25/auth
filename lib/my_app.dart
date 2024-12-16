@@ -1,4 +1,4 @@
-import 'package:authapp/views/screen/auth/main_auth/auth_gate.dart';
+import 'package:authapp/features/auth/screens/main_auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
