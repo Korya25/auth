@@ -31,7 +31,7 @@ class AuthGoogleServices {
       return userCredential.user;
     } catch (e) {
       if (context.mounted) {
-        customSnackBar(context, 'Error: ${e.toString()}');
+        CustomDialogHandler.showCustomDialog(context, 'Error: ${e.toString()}');
       }
       return null;
     }
@@ -57,14 +57,13 @@ class AuthGoogleServices {
 
       // عرض رسالة توضح أن تسجيل الخروج تم بنجاح
       if (context.mounted) {
-        final snackBar = SnackBar(content: Text('You have been logged out.'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        CustomDialogHandler.showCustomDialog(
+            context, 'You have been logged out.');
       }
     } catch (e) {
       // التعامل مع الأخطاء إذا حدثت أثناء تسجيل الخروج
       if (context.mounted) {
-        final snackBar = SnackBar(content: Text('Error: ${e.toString()}'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        CustomDialogHandler.showCustomDialog(context, 'Error: ${e.toString()}');
       }
     }
   }

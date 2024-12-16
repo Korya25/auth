@@ -1,5 +1,4 @@
 import 'package:authapp/features/auth/screens/main_auth/login_or_register_screen.dart';
-import 'package:authapp/features/auth/screens/viriactionscreen.dart';
 import 'package:authapp/features/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,17 +51,9 @@ class AuthGate extends StatelessWidget {
     if (snapshot.hasError) {
       return _buildErrorScreen("An error occurred. Please try again.");
     }
-
     if (snapshot.hasData) {
-      final user = snapshot.data!;
-      if (!user.emailVerified) {
-        // البريد الإلكتروني غير محقق
-        return const VirfiyScreen();
-      }
-      // البريد الإلكتروني مُحقق
       return const HomeScreen();
     }
-
     // المستخدم غير مسجل الدخول
     return const LoginOrRegisterScreen();
   }

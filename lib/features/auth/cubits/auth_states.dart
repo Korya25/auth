@@ -11,8 +11,6 @@ class AuthFailure extends AuthState {
   AuthFailure({required this.errorMessage});
 }
 
-class AuthEmailNotVerified extends AuthState {}
-
 class AuthPasswordResetSuccess extends AuthState {}
 
 class AuthLoggedOut extends AuthState {}

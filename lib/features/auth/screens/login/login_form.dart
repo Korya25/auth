@@ -80,7 +80,11 @@ class _LoginFormState extends State<LoginForm> {
                 password: _passwordController.text,
               ),
               const CustomDevider(title: 'or'),
-              LoginFooter(onTap: widget.onTap),
+              LoginFooter(
+                onTap: widget.onTap,
+                title: 'New to app?',
+                titletwo: 'Register Now',
+              ),
             ],
           ),
         ),

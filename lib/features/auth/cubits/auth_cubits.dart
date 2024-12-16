@@ -29,11 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        if (!user.emailVerified) {
-          emit(AuthEmailNotVerified());
-        } else {
-          emit(AuthSuccess());
-        }
+        emit(AuthSuccess());
       } else {
         emit(AuthFailure(errorMessage: "User not found."));
       }
@@ -94,13 +90,7 @@ class AuthCubit extends Cubit<AuthState> {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        if (!user.emailVerified) {
-          // إذا لم يتم التحقق من البريد الإلكتروني
-          emit(AuthEmailNotVerified());
-        } else {
-          // النجاح في التسجيل
-          emit(AuthSuccess());
-        }
+        emit(AuthSuccess());
       } else {
         emit(AuthFailure(errorMessage: "Registration failed. User not found."));
       }
