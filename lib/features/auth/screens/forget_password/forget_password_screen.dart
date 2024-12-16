@@ -1,8 +1,6 @@
 import 'package:authapp/constants/app_text_style.dart';
-import 'package:authapp/logic/forget_Password_cuibt/forget_password_cuibt.dart';
 import 'package:authapp/features/auth/screens/forget_password/forget_password_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -20,10 +18,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           style: AppTextStyle.appBar,
         ),
       ),
-      body: BlocProvider(
-        create: (context) => ForgetPasswordCuibt(),
-        child: ForgetPassForm(),
-      ),
+      body: ForgetPassForm(),
     );
   }
 }

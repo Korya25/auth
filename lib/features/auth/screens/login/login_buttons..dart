@@ -1,14 +1,10 @@
-import 'package:authapp/logic/google_register_cuibt/google_register_state.dart';
-import 'package:authapp/logic/google_register_cuibt/google_registur_cuibt.dart';
-import 'package:authapp/logic/login_cuibt/login_cuibt.dart';
-import 'package:authapp/logic/login_cuibt/login_state.dart';
-
+import 'package:authapp/features/auth/cubits/auth_cubits.dart';
+import 'package:authapp/features/auth/cubits/auth_states.dart';
 import 'package:authapp/features/auth/widgets/action_auth_button.dart';
 import 'package:authapp/features/auth/widgets/custom_divider.dart';
 import 'package:authapp/features/auth/widgets/custom_google_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:authapp/logic/register_cuibt/register_state.dart';
 
 class LoginButtons extends StatelessWidget {
   final bool isValid;
@@ -25,11 +21,11 @@ class LoginButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerGoogleCubit = context.watch<RegisterGoogleCubit>();
+    final authCubit = context.watch<AuthCubit>();
 
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        final isLoading = state is RegisterLoading;
+        final isLoading = state is AuthLoading;
 
         return Column(
           spacing: spacing,
@@ -37,7 +33,7 @@ class LoginButtons extends StatelessWidget {
             CustomActionAuthButton(
               onTap: isValid && !isLoading
                   ? () {
-                      BlocProvider.of<LoginCubit>(context).loginWithEmail(
+                      authCubit.loginWithEmail(
                           email: email, password: password, context: context);
                     }
                   : () {},
@@ -57,13 +53,11 @@ class LoginButtons extends StatelessWidget {
             const CustomDevider(title: 'or'),
             CustomLoginWithGoogle(
               onTap: () {
-                registerGoogleCubit.registerWithGoogle(context);
+                authCubit.registerWithGoogle(context);
               },
               title: 'Login with Google',
               backgroundColor: const Color.fromARGB(255, 45, 43, 43),
-              loading: registerGoogleCubit.state is RegisterGoogleLoading
-                  ? true
-                  : false,
+              loading: authCubit.state is AuthLoading ? true : false,
             ),
           ],
         );

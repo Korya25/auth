@@ -1,10 +1,6 @@
-import 'package:authapp/logic/google_register_cuibt/google_registur_cuibt.dart';
-import 'package:authapp/logic/login_cuibt/login_cuibt.dart';
-import 'package:authapp/core/services/auth/auth_services.dart'; // إضافة لاستيراد AuthServices
 import 'package:authapp/features/auth/screens/login/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:authapp/constants/app_text_style.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key, required this.onTap});
@@ -24,18 +20,7 @@ class LoginScreen extends StatelessWidget {
           style: AppTextStyle.appBar,
         ),
       ),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<LoginCubit>(
-            create: (context) =>
-                LoginCubit(AuthServices()), // تمرير AuthServices إلى LoginCubit
-          ),
-          BlocProvider<RegisterGoogleCubit>(
-            create: (context) => RegisterGoogleCubit(),
-          ),
-        ],
-        child: LoginForm(onTap: onTap),
-      ),
+      body: LoginForm(onTap: onTap),
     );
   }
 }

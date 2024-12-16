@@ -1,6 +1,6 @@
 import 'package:authapp/core/services/auth/auth_google_services.dart';
 import 'package:authapp/core/services/auth/auth_services.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -66,6 +66,44 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await authServices.resetPassword(email: email, context: context);
       emit(AuthPasswordResetSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(AuthFailure(errorMessage: e.code));
+    } catch (e) {
+      emit(AuthFailure(errorMessage: e.toString()));
+    }
+  }
+
+  /// التسجيل باستخدام البريد الإلكتروني وكلمة المرور
+  Future<void> registerWithEmail({
+    required String userName,
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    emit(AuthLoading());
+    try {
+      // استدعاء خدمة التسجيل
+      await authServices.registerWithEmail(
+        userName: userName,
+        email: email,
+        password: password,
+        context: context,
+      );
+
+      // التحقق من حالة المستخدم بعد التسجيل
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        if (!user.emailVerified) {
+          // إذا لم يتم التحقق من البريد الإلكتروني
+          emit(AuthEmailNotVerified());
+        } else {
+          // النجاح في التسجيل
+          emit(AuthSuccess());
+        }
+      } else {
+        emit(AuthFailure(errorMessage: "Registration failed. User not found."));
+      }
     } on FirebaseAuthException catch (e) {
       emit(AuthFailure(errorMessage: e.code));
     } catch (e) {

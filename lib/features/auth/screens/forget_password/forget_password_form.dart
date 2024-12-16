@@ -1,7 +1,7 @@
 import 'package:authapp/constants/app_text_style.dart';
 import 'package:authapp/core/utils/auth_validator.dart';
-import 'package:authapp/logic/forget_Password_cuibt/forget_password_cuibt.dart';
-import 'package:authapp/logic/forget_Password_cuibt/forget_password_state.dart';
+import 'package:authapp/features/auth/cubits/auth_cubits.dart';
+import 'package:authapp/features/auth/cubits/auth_states.dart';
 import 'package:authapp/features/auth/widgets/action_auth_button.dart';
 import 'package:authapp/features/auth/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +37,10 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ForgetPasswordCuibt, ForgetPasswordState>(
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        final isloading = state is ForgetPasswordLoading;
+        final authCubit = context.watch<AuthCubit>();
+        final isLoading = authCubit is AuthLoading;
         return Padding(
           padding: const EdgeInsets.all(15),
           child: Form(
@@ -74,15 +75,13 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
 
                 // Password Recavory Button
                 CustomActionAuthButton(
-                  onTap: isValid && !isloading
+                  onTap: isValid && !isLoading
                       ? () {
-                          BlocProvider.of<ForgetPasswordCuibt>(context)
-                              .resetPassword(
-                                  email: _emailController.text,
-                                  context: context);
+                          authCubit.resetPassword(
+                              email: _emailController.text, context: context);
                         }
                       : () {},
-                  title: isloading
+                  title: isLoading
                       ? CircularProgressIndicator()
                       : Text(
                           'Send Password Recoveery',
@@ -93,7 +92,7 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
                           ),
                         ),
                   backgroundColor: isValid ? Colors.blue : Colors.grey,
-                  isEnabled: isValid && !isloading,
+                  isEnabled: isValid && !isLoading,
                 ),
               ],
             ),
@@ -103,28 +102,3 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
     );
   }
 }
-/*
-
-*/
-/*
-CustomActionAuthButton(
-              onTap: isValid && !isLoading
-                  ? () {
-                      BlocProvider.of<LoginCubit>(context).loginWithEmail(
-                          email: email, password: password, context: context);
-                    }
-                  : () {},
-              title: isLoading
-                  ? CircularProgressIndicator()
-                  : Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-              backgroundColor: isValid ? Colors.blue : Colors.grey,
-              isEnabled: isValid && !isLoading,
-            ),
-*/
