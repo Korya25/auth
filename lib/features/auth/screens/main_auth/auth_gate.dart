@@ -58,3 +58,56 @@ class AuthGate extends StatelessWidget {
     return const LoginOrRegisterScreen();
   }
 }
+/*
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        // حالة التحميل
+        if (state is AuthLoading) {
+          return _buildLoadingScreen();
+        }
+
+        // حالة النجاح - المستخدم مسجل الدخول
+        if (state is AuthSuccess) {
+          return const HomeScreen();
+        }
+
+        // حالة الفشل أو عدم تسجيل الدخول
+        if (state is AuthFailure) {
+          return _buildErrorScreen(state.errorMessage);
+        }
+
+        // حالة المبدئية - المستخدم غير مسجل الدخول
+        return const LoginOrRegisterScreen();
+      },
+    );
+  }
+
+  // شاشة تحميل
+  Widget _buildLoadingScreen() {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  // شاشة خطأ
+  Widget _buildErrorScreen(String errorMessage) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          errorMessage,
+          style: const TextStyle(fontSize: 16, color: Colors.red),
+        ),
+      ),
+    );
+  }
+}
+
+*/

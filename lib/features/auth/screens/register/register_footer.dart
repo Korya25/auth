@@ -3,6 +3,31 @@ import 'package:flutter/material.dart';
 
 class RegisterFooter extends StatelessWidget {
   const RegisterFooter({super.key, required this.onTap});
+
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTextButton(
+      onTap: onTap,
+      title: 'Already have an account?',
+      titleStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 15,
+      ),
+      titletwo: 'Login Now',
+      titletwoStyle: const TextStyle(
+        color: Colors.blue,
+        fontSize: 15,
+      ),
+    );
+  }
+}
+
+
+/*
+class RegisterFooter extends StatelessWidget {
+  const RegisterFooter({super.key, required this.onTap});
   final Function() onTap;
   @override
   Widget build(BuildContext context) {
@@ -21,3 +46,4 @@ class RegisterFooter extends StatelessWidget {
     );
   }
 }
+*/
