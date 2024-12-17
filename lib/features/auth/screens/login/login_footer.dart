@@ -30,33 +30,3 @@ class LoginFooter extends StatelessWidget {
     );
   }
 }
-
-
-/*
-class LoginFooter extends StatelessWidget {
-  const LoginFooter(
-      {super.key,
-      required this.onTap,
-      required this.title,
-      required this.titletwo});
-  final Function() onTap;
-  final String title;
-  final String titletwo;
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextButton(
-      onTap: onTap,
-      title: title,
-      titleStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 15,
-      ),
-      titletwo: titletwo,
-      titletwoStyle: TextStyle(
-        color: Colors.blue,
-        fontSize: 15,
-      ),
-    );
-  }
-}
-*/

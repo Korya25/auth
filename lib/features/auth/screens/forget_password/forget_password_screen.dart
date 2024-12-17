@@ -32,27 +32,3 @@ class ForgetPasswordScreen extends StatelessWidget {
     );
   }
 }
-
-
-/*
-class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 45, 45, 49),
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text(
-          'Forget Password',
-          style: AppTextStyle.appBar,
-        ),
-      ),
-      body: ForgetPassForm(),
-    );
-  }
-}
-*/

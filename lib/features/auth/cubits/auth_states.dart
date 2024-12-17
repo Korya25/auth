@@ -8,9 +8,24 @@ class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {}
 
-class AuthFailure extends AuthState {
+class AuthFailureLogin extends AuthState {
   final String errorMessage;
-  AuthFailure({required this.errorMessage});
+  AuthFailureLogin({required this.errorMessage});
+}
+
+class AuthFailureRegister extends AuthState {
+  final String errorMessage;
+  AuthFailureRegister({required this.errorMessage});
+}
+
+class AuthFailureResetPass extends AuthState {
+  final String errorMessage;
+  AuthFailureResetPass({required this.errorMessage});
+}
+
+class AuthFailureLogout extends AuthState {
+  final String errorMessage;
+  AuthFailureLogout({required this.errorMessage});
 }
 
 class AuthLoginSuccess extends AuthState {

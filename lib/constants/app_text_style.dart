@@ -8,7 +8,7 @@ class AppTextStyle {
 
   static TextStyle labelTextFormField = TextStyle(
     color: Colors.white,
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: FontWeight.w400,
   );
 

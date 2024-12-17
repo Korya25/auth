@@ -1,5 +1,8 @@
 import 'package:authapp/core/services/auth/auth_google_services.dart';
 import 'package:authapp/core/services/auth/auth_services.dart';
+import 'package:authapp/core/utils/snakbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.googleServices,
   }) : super(AuthInitial());
 
-  /// تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
+  // Login With Email
   Future<void> loginWithEmail({
     required String email,
     required String password,
@@ -35,14 +38,14 @@ class AuthCubit extends Cubit<AuthState> {
           emit(AuthLoginSuccess(user: user));
         }
       } else {
-        emit(AuthFailure(errorMessage: "User not found."));
+        emit(AuthFailureLogin(errorMessage: "User not found."));
       }
     } catch (e) {
-      emit(AuthFailure(errorMessage: e.toString()));
+      emit(AuthFailureLogin(errorMessage: e.toString()));
     }
   }
 
-  /// التسجيل باستخدام البريد الإلكتروني وكلمة المرور
+  // Register With Email
   Future<void> registerWithEmail({
     required String userName,
     required String email,
@@ -61,14 +64,15 @@ class AuthCubit extends Cubit<AuthState> {
       if (user != null) {
         emit(AuthRegistrationSuccess(user: user));
       } else {
-        emit(AuthFailure(errorMessage: "Registration failed. User not found."));
+        emit(AuthFailureRegister(
+            errorMessage: "Registration failed. User not found."));
       }
     } catch (e) {
-      emit(AuthFailure(errorMessage: e.toString()));
+      emit(AuthFailureRegister(errorMessage: e.toString()));
     }
   }
 
-  /// تسجيل الدخول باستخدام Google
+  // Login and Register With Google
   Future<void> loginWithGoogle() async {
     emit(AuthLoading());
     try {
@@ -76,32 +80,36 @@ class AuthCubit extends Cubit<AuthState> {
       if (user != null) {
         emit(AuthLoginSuccess(user: user));
       } else {
-        emit(AuthFailure(errorMessage: "Google login failed."));
+        emit(AuthFailureLogin(errorMessage: "Google login failed."));
       }
     } catch (e) {
-      emit(AuthFailure(errorMessage: e.toString()));
+      emit(AuthFailureLogin(errorMessage: e.toString()));
     }
   }
 
-  /// إعادة تعيين كلمة المرور
-  Future<void> resetPassword({required String email}) async {
+  // Reset Pass
+  Future<void> resetPassword(
+      {required String email, required BuildContext context}) async {
     emit(AuthLoading());
     try {
       await authServices.resetPassword(email: email);
       emit(AuthPasswordResetSuccess());
+      Navigator.pop(context);
+      CustomDialogHandler.showCustomDialog(context,
+          'we have sent you an email with instructions to recover your password');
     } catch (e) {
-      emit(AuthFailure(errorMessage: e.toString()));
+      emit(AuthFailureResetPass(errorMessage: e.toString()));
     }
   }
 
-  /// تسجيل الخروج
+  // Log out
   Future<void> logout() async {
     emit(AuthLoading());
     try {
       await googleServices.signOut();
       emit(AuthLoggedOut());
     } catch (e) {
-      emit(AuthFailure(errorMessage: e.toString()));
+      emit(AuthFailureLogout(errorMessage: e.toString()));
     }
   }
 }

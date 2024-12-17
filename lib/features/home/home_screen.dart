@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthFailure) {
+        if (state is AuthFailureLogout) {
           // إذا حدث خطأ في المصادقة، يمكن إضافة أكواد لإظهار الرسائل
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.errorMessage)),
@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         if (state is AuthLoading) {
           return _buildLoadingScreen();
         }
-        if (state is AuthFailure) {
+        if (state is AuthFailureLogout) {
           return _buildErrorScreen(state.errorMessage);
         }
         return Scaffold(

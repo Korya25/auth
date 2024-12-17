@@ -40,36 +40,3 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
     );
   }
 }
-
-
-/*
-class LoginOrRegisterScreen extends StatefulWidget {
-  const LoginOrRegisterScreen({super.key});
-
-  @override
-  State<LoginOrRegisterScreen> createState() => _LoginOrRegisterScreenState();
-}
-
-class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
-  bool showloginpage = true;
-
-  void toggelePage() {
-    setState(() {
-      showloginpage = !showloginpage;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (showloginpage) {
-      return LoginScreen(
-        onTap: toggelePage,
-      );
-    } else {
-      return RegisterScreen(
-        onTap: toggelePage,
-      );
-    }
-  }
-}
-*/

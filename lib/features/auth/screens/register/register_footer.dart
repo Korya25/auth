@@ -23,27 +23,3 @@ class RegisterFooter extends StatelessWidget {
     );
   }
 }
-
-
-/*
-class RegisterFooter extends StatelessWidget {
-  const RegisterFooter({super.key, required this.onTap});
-  final Function() onTap;
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextButton(
-      onTap: onTap,
-      title: 'Aready have account?',
-      titleStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 15,
-      ),
-      titletwo: 'Login Now',
-      titletwoStyle: TextStyle(
-        color: Colors.blue,
-        fontSize: 15,
-      ),
-    );
-  }
-}
-*/
